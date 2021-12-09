@@ -1,7 +1,7 @@
 -- Creating Procedures
 
 DELIMITER //
-CREATE PROCEDURE `AddBonus` (IN user_id INT, IN project_name VARCHAR(255), IN score INT);
+CREATE PROCEDURE `AddBonus` (IN user_id INT, IN project_name VARCHAR(255), IN score INT)
 BEGIN
 DECLARE try1, p_id INT;
 SET try1 = (SELECT project_name IN (SELECT name FROM projects));
