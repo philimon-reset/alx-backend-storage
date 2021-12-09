@@ -1,0 +1,1 @@
+--  computes and store the average weighted score for a student.
