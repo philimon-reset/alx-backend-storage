@@ -1,6 +1,6 @@
 -- Creating Procedures
 
-delimiter //
+DELIMITER //
 CREATE PROCEDURE `AddBonus` (IN user_id INT, IN project_name VARCHAR(255), IN score INT);
 BEGIN
 DECLARE try1, p_id INT;
@@ -11,4 +11,4 @@ END IF;
 SET p_id = (SELECT id FROM projects WHERE name = project_name LIMIT 1);
 INSERT INTO corrections(user_id, project_id, score) VALUE(user_id, p_id, score);
 END //
-delimiter ;
+DELIMITER ;
