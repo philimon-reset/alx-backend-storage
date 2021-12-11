@@ -1,17 +1,9 @@
--- Show and add bonus correction
+-- Show and compute average weighted score
+SELECT * FROM users;
 SELECT * FROM projects;
 SELECT * FROM corrections;
 
-SELECT "--";
-
-CALL AddBonus((SELECT id FROM users WHERE name = "Jeanne"), "Python is cool", 100);
-
-CALL AddBonus((SELECT id FROM users WHERE name = "Jeanne"), "Bonus project", 100);
-CALL AddBonus((SELECT id FROM users WHERE name = "Bob"), "Bonus project", 10);
-
-CALL AddBonus((SELECT id FROM users WHERE name = "Jeanne"), "New bonus", 90);
+CALL ComputeAverageWeightedScoreForUser((SELECT id FROM users WHERE name = "Jeanne"));
 
 SELECT "--";
-
-SELECT * FROM projects;
-SELECT * FROM corrections;
+SELECT * FROM users;

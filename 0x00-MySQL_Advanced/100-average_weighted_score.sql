@@ -1,1 +1,12 @@
 --  computes and store the average weighted score for a student.
+
+DELIMITER //
+CREATE PROCEDURE `ComputeAverageWeightedScoreForUser` (IN user_id INT)
+BEGIN
+DECLARE total_W, final_W INT;
+SET total_W = (SELECT SUM(weight) FROM projects INNER JOIN corrections ON projects.id = corrections.project_id WHERE corrections.user_id = user_id);
+SET final_W = (SELECT SUM(projects.weight * corrections.score) / total_W FROM projects
+INNER JOIN corrections ON corrections.project_id = projects.id WHERE corrections.user_id = user_id);
+UPDATE users SET users.average_score = final_W WHERE users.id = user_id;
+END //
+DELIMITER ;
