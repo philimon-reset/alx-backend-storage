@@ -1,35 +1,29 @@
 #!/usr/bin/env python3
 """ nginx logs to mongo instance parser """
 
-from pymongo import MongoClient
+from pymongo import MongoClient, aggregation
 from collections import Counter
 
 
 if __name__ == "__main__":
     """ main process """
     client = MongoClient()
-    db = client.logs
-    coll = [x for x in db.nginx.find()]
-    ip = [x["ip"] for x in db.nginx.aggregate([{"$project": {"_id":0, "ip": 1}}])]
+    main = client.logs.nginx
     method_C = {"GET": 0, "POST": 0, "PUT": 0, "PATCH": 0, "DELETE": 0}
-    status = 0
-    count = 0
-    main = {}
-    for i in coll:
-        if i["method"] in method_C:
-            method_C[i["method"]] += 1
-        if i["method"] == "GET" and i["path"] == "/status":
-            status += 1
-    print(f"{len(coll)} logs")
+    status = main.count_documents({"method": "GET", "path": "/status"})
+    print(f"{main.estimated_document_count()} logs")
     print("Methods:")
-    for key, value in method_C.items():
-        print(f"\tmethod {key}: {value}")
+    for i in method_C:
+        check = main.count_documents({"method": i})
+        print(f"\tmethod {i}: {check}")
     print(f"{status} status check")
-    for x in list(set(ip)):
-        main[x] = ip.count(x)
+    count = 0
+    aggr = [{"$group": {"_id": '$ip', "c": {"$sum": 1}}}, {"$sort": {"c": -1}}]
+    db = client.logs
+    ip = {x["_id"]: x["c"] for x in db.nginx.aggregate(aggr)}
     print("IPs:")
-    for y in sorted(main.items(), key=lambda x: x[1], reverse=True):
+    for key, value in ip.items():
         if count > 10:
             break
         count += 1
-        print(f"\t{y[0]}: {y[1]}")
+        print(f"\t{key}: {value}")
