@@ -5,6 +5,7 @@ from pymongo import MongoClient
 
 
 if __name__ == "__main__":
+    """ main process """
     client = MongoClient()
     db = client.logs
     coll = [x for x in db.nginx.find()]
