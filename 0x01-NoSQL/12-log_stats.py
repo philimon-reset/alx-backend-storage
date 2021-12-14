@@ -13,5 +13,5 @@ if __name__ == "__main__":
     print("Methods:")
     for i in method_C:
         check = main.count_documents({"method": i})
-        print(f"    method {i}: {check}")
+        print(f"\tmethod {i}: {check}")
     print(f"{status} status check")
