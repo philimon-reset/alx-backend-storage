@@ -5,7 +5,7 @@ from pymongo import MongoClient
 
 
 if __name__ == "__main__":
-    client = MongoClient('mongodb://127.0.0.1:27017')
+    client = MongoClient()
     db = client.logs
     coll = [x for x in db.nginx.find()]
     method_C = {"GET": 0, "POST": 0, "PUT": 0, "PATCH": 0, "DELETE": 0}
