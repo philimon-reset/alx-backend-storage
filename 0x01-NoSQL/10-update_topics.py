@@ -6,4 +6,4 @@ import pymongo
 
 def update_topics(mongo_collection, name, topics):
     """ main function """
-    return mongo_collection.insert_one(kwargs).inserted_id
+    mongo_collection.update_many({"name": name}, {'$set' : {"topics": topics}})
