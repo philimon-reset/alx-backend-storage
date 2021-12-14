@@ -22,7 +22,7 @@ def temp_F():
     ip = {x["_id"]: x["c"] for x in db.nginx.aggregate(aggr)}
     print("IPs:")
     for key, value in ip.items():
-        if count > 10:
+        if count > 9:
             break
         count += 1
         print(f"\t{key}: {value}")
