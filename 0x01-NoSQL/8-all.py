@@ -3,6 +3,7 @@
 
 import pymongo
 
+
 def list_all(mongo_collection):
     """ main function to list documents"""
     main = [x for x in mongo_collection.find({})]
