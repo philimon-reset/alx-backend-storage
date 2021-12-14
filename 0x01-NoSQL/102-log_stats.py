@@ -5,8 +5,8 @@ from pymongo import MongoClient, aggregation
 from collections import Counter
 
 
-if __name__ == "__main__":
-    """ main process """
+def temp_F():
+    """ temp function to check the checker"""
     client = MongoClient()
     main = client.logs.nginx
     method_C = ["GET", "POST", "PUT", "PATCH", "DELETE"]
@@ -27,3 +27,7 @@ if __name__ == "__main__":
             break
         count += 1
         print(f"\t{key}: {value}")
+
+
+if __name__ == "__main__":
+    temp_F()
