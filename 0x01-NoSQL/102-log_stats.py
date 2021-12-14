@@ -9,7 +9,7 @@ if __name__ == "__main__":
     """ main process """
     client = MongoClient()
     main = client.logs.nginx
-    method_C = {"GET": 0, "POST": 0, "PUT": 0, "PATCH": 0, "DELETE": 0}
+    method_C = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     status = main.count_documents({"method": "GET", "path": "/status"})
     print(f"{main.estimated_document_count()} logs")
     print("Methods:")
