@@ -20,4 +20,4 @@ if __name__ == "__main__":
     print("Methods:")
     for key, value in method_C.items():
         print(f"\tmethod {key}: {value}")
-    print(f"{status} status check")
+    print(f"{status} status check", end="")
